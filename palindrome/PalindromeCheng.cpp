@@ -13,6 +13,8 @@ int main()
   char chArray[80];   // user's input
   char chArray2 [80];  // without punctuations and spaces
   char chArray3 [80];  //backward of chArray2 
+  cout <<"Please input something and I will check if it's a palindrome for you." << endl;
+  cout <<"Your sentence: " ;
   cin.get(chArray , 80);
   cin.get();
   int xd  = 0;
@@ -37,7 +39,7 @@ int main()
       cout << "Please type something that contains at least one letter please!" << endl;
       return 0;
     }
-  cout << chArray2 << endl; // print out the sentence with only letters+numbers
+  cout <<"Input: "<<  chArray2 << endl; // print out the sentence with only letters+numbers
   int ch3tracker = 0;
   for ( int i = strlen(chArray2)-1 ; i > -1; i--) // put the charray 2 backward into charray3
     {
@@ -45,7 +47,7 @@ int main()
       ch3tracker ++;
     }
   chArray3[ch3tracker] = '\0'; // end charray3
-  cout << chArray3 << endl; // print it out
+  cout <<"Output: " <<chArray3 << endl; // print it out
 
   if ( strcmp (chArray2 , chArray3) == 0) // if they are the same backward and foward
      {
