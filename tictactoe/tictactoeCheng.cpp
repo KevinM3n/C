@@ -13,6 +13,8 @@ const int X_TURN = 0 ;
 const int O_TURN = 1;
 
 bool checkwin(int board[][3], int player )
+/*  check if the user wins by one of the possibilities out of 9
+ */
 {
 		bool win = false;
 		if (board[0][0] == player &&
@@ -70,6 +72,9 @@ bool checkwin(int board[][3], int player )
 
 bool checktie(int board[][3])
 {
+  /*
+    if all the boards is filled, and no one has win, it's a tie
+   */
     bool tie = true;
     for ( int row = 0; row < 3 ; row++)
     {
@@ -85,7 +90,7 @@ bool checktie(int board[][3])
     
 }
 int clearboard ( int board[][3])
-{
+{// set everything on the board to blank;
        for (int row = 0; row < 3; row ++)
         {
             for (int column = 0; column < 3; column ++)
@@ -97,35 +102,35 @@ int clearboard ( int board[][3])
 }
 int printboard (int board[][3])
 {
-  char output[99];
+  // print out the board
+  // print out the top of th eboard
     cout << "\t1\t2\t3" << endl;
         for ( int row = 0; row < 3 ; row++)
         {
- 
-          for (int column = 0; column < 3; column ++ )
-	    {
+	  //print out the side of the board. for each row, print a + row number.
+          cout << (char)('a' + row) <<"\t";
+	  // if it's blank print nothing, if it's X print X if it's O print O
+           for (int column = 0; column < 3; column ++)
+        	{
     	    if (board[row][column] == BLANK)
     	        {
-		  output[strlen(output)] = '\t';
-		      
+		  cout << "\t";
     	        }
     	  else if (board[row][column] == X_MOVE)
     	        {
-		  
-		  output [strlen(output)] =  'X';
-		  output [strlen(output)+1] ='\t';
-    	       }
+		  cout << "X\t" ;
+	         }
     	  else if (board[row][column] == O_MOVE)
     	         {
-		   output [strlen(output)] = 'O';
-		   output [strlen(output)] = '\t';
-    	          }
-	     }
+		   cout << "O\t";
+		 }
+            
     	    }
-    	output [strlen(output)] = '\0';
-	  cout << output << endl;
+	   cout << endl;
+       
+      
         }   
-
+}
 int main()
 
 {
@@ -137,6 +142,7 @@ int main()
 
   bool game = true;
   clearboard(board);
+  // reset everything
   cout << "Start the game by entering any of coordinates that's blank in the 3v3 board." << endl;
       cout << "With a lower case letter followed up by a number. " << endl;
   
@@ -144,6 +150,7 @@ int main()
     {
      
      printboard(board);
+     //tell user whose turn it is
       if (TURN == X_TURN)
       {
   cout << "It's X's turn now " << endl;
@@ -152,30 +159,59 @@ int main()
       {
            cout << "It's O's turn now " << endl;
       }
-  char where [2] ;
-  cin.get(where, 3);
-  cin.get();
+      char where [2] ;  //coordinates
+      char user [99]; // whatever user may enter
+      int length = 0; // length
+      cin.get(user,99);  //read in whatever user may enter
+ cin.get();
+ for (length = 0; length < strlen(user); length++)
+    {
+    }
+ 
+ user[length] ='\0';  // stop reading in more
+ where[0] = user[0]; // only care about the first two letter/number the user put in
+  where[1] = user [1];
     int Row = 0;
     int Column = 0;
   
-       
+    // if user can't enter a correct coordinate, keep doing it. The user [99] stops the while loop from never ending
         while (where[0]!= 'a' &&
         	where[0]!= 'b' &&
         	where[0]!= 'c' )
         		{
         				cout << "Row must be an a or b or c." << endl;
-        				cin.get(where,99);
-        				cin.get();
+        				   length = 0;
+ cin.get(user,99);
+ cin.get();
+ for (length = 0; length < strlen(user); length++)
+    {
+    }
+ 
+  user[length] ='\0';
+  
+   where[0] = user[0];
+  where[1] = user [1];
         				
         		}
-        while  (where[1]!= '1' &&
+        while (where[1]!= '1' &&
         		where[1]!= '2' &&
         		where[1]!= '3' )
         		{
-        			cout << "Column must be a 1 or 2 or 3." << endl;
-        		    cin.get(where,99);
-        				cin.get();
-        		}        
+        	           cout << "Column must be a 1 or 2 or 3." << endl;
+        		   
+			    where[3] = '\0';
+			    length = 0;
+			   
+					cin.get(user,99);
+ cin.get();
+ for (length = 0; length < strlen(user); length++)
+    {
+    }
+ 
+  user[length] ='\0';
+  where[0] = user[0];
+  where[1] = user [1];        		}
+        
         		    Row = where[0] - 'a';
         		    Column = where[1] - '1';
                    // cout << where[0]- 'a' << "," << where[1] - '1' << endl;
@@ -183,7 +219,7 @@ int main()
                     if (board[Row][Column] == BLANK)
                     {
                      //   cout << where[0]- 'a' << "," << where[1] - '1' << endl;
-                       
+		      // if the place
                         if (TURN == X_TURN)
                         {
                         
