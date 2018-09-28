@@ -13,14 +13,17 @@ using namespace std;
 
 struct student
 {
-  char name [99];
+  char firstname [99];
+  char lastname [99];
   int id;
   float gpa;
 };
 
-student add(vector<student*> studentlist); // when you want to add a student.
+student* add(vector<student*>studentlist); // when you want to add a student.
+    
+void print(vector<student*> studentlist); // when you want to print out the student list
 void deletestudent(); // when you want to delete a student
-void print(student a); // when you want to print out the student list
+
 
   int main()
   {
@@ -32,16 +35,16 @@ void print(student a); // when you want to print out the student list
     cout << endl;
 
     vector<student*> studentlist;
-
     int numberofstudent = 0;
     bool program = true;
+    char answer[99];
     while (program == true)
       {
 	
 	
 	
-	cout << "Now what would you like to do? my friend."<< endl;
-	char answer [99];
+	cout << "Now what would you like to do? My friend."<< endl;
+	
   	cin.get (answer, 99);
 	cin.get();
 	int length = strlen(answer);
@@ -54,10 +57,12 @@ void print(student a); // when you want to print out the student list
 	    answer[2] == 'D' )
 	  {
 	 
-	    add(studentlist);
-	    numberofstudent ++;
+	    studentlist.push_back(add(studentlist));
+	    numberofstudent ++; /*
+				  just a feature to tell the user how many student they have
+				 */
 	    cout << "You currently have " <<numberofstudent << " students in your studentlist" << endl;
-
+	    
 	  }
 	else if (answer[0] == 'D' &&
 	    answer[1] == 'E' &&
@@ -74,12 +79,16 @@ void print(student a); // when you want to print out the student list
 	    answer[3] == 'N' &&
 	    answer[4] == 'T' )
 	  {
-	    
-	    for (int i = 0; i < numberofstudent; i++)
+	    /* Go through the studentlist (vector) from the beginning to the end
+	       Print out their information.
+
+	     */
+	    for (vector<student*>::iterator it = studentlist.begin(); it != studentlist.end(); ++it)
 	      {
-		cout << *studentlist.at(i)->name << endl;
-	   
+		cout <<"Name: "<< (*it)-> firstname <<" " <<(*it)-> lastname << "\tID: " <<(*it) -> id <<  "\tGPA: " << (*it)-> gpa <<endl;
+
 	      }
+
 	  }
 	else if (answer[0] == 'Q' &&
 	    answer[1] == 'U' &&
@@ -98,59 +107,116 @@ void print(student a); // when you want to print out the student list
        }
   }
     
-    void print(student a) // when you want to print out the student list
-{
-  cout << "Name: " ;
-  for (int i=0; i<= strlen(a.name); i++)
-    {
-      cout << a.name[i];
-    }
-  cout << " ID: " << a.id;
-  cout << " GPA: " << a.gpa << endl;
-}
+
     void deletestudent() // when you want to delete a student
 {
   cout << "Which student do you want to delete?" << endl;
   cout << "Either tell me the student's name or ID number." << endl;
 }
 
-student add(vector<student*> studentlist) // when you want to add a student.
+student* add(vector<student*> studentlist) // when you want to add a student.
 {
-  char name[99];
+
+
+  /*
+    SAW KEVIN MEN'S GITHUB  EXAMPLES OF FOR LOOPS FOR VECTORS & USE OF ->, * & PUSHBACK 
+
+
+
+
+   */
+  /*
+    when you add a student, first set the return type to student so back there you do 
+    studentlist.push_back(add(studentlist)) add(studentlist) gives you a student
+    
+    I need to pass in the studetnlist so i can check if theres a student in studentlist
+    with the same id number which is not allowed/
+
+
+   */
+  char firstname[99];
+  char lastname[99];
   int id;
   float gpa;
-
+  /*
+    Variables of a student
+   */
   student* a = new student;
+  // create a new student
   
-    cout << "What's the name of the students that you want to add?" << endl;
- cin.get(name,99);
+    cout << "What's the first name of the students that you want to add?" << endl;
+ cin.get(firstname,99);
+ cin.get();
 
- int length = strlen(name);
- name[length] = '\0';
+ int flength = strlen(firstname);
+firstname[flength] = '\0';
 
- student newstudent;
- 
- for(int i=0; i<= length; i++)
+    cout << "What's the last name of the students that you want to add?" << endl;
+ cin.get(lastname,99);
+ cin.get();
+
+ int llength = strlen(lastname);
+ lastname[llength] = '\0';
+ /*
+   ask for information, and stop reading in more first name / last name after it's done('\0')
+  */
+ for(int i=0; i<= flength; i++)
    {
-     a->name[i] = name[i];
+     a->firstname[i] = firstname[i];
    }
+ for(int i=0; i<= llength; i++)
+   {
+     a->lastname[i] = lastname[i];
+   }
+ /*
+   make the student's first name last name the same as what we just read in
+  */
      
 
 
  cout << "ID?" << endl;
+
  cin >> id;
  cin.get();
+
+ for (vector<student*>::iterator it = studentlist.begin(); it != studentlist.end(); ++it)
+   {
+     while ((*it)-> id = id)
+       {
+	 /* read in the id, go through the studentlist, if the id already exists
+	    tell the user to retype
+
+	   
+	  */
+	 cout << "Some one with the same ID number is already in the studentlist!" << endl;
+	 cout << "Please type in another student ID" << endl;
+	 cin >> id;
+	 cin.get();
+	 /*
+	   keep doing it until the user types in something that's different than the id existed.
+	   break breaks the while loop but not the for loop.
+	  */
+	 if ((*it)-> id != id)
+	   {
+	     break;
+	   }
+       }
+  }
    a->id = id;
 
-
+   /*
+     if the id is unique, set the student's id to the id we read in
+    */
+	   
+ 
+   // read in gpa 
  cout << "GPA?" << endl;
  cin >> gpa;
  cin.get();
    a->gpa =gpa;
 
-   studentlist.push_back(a);
-
- 
+  
+   // return the student t
         }
 
 
