@@ -1,0 +1,64 @@
+#include<iostream>
+
+using namespace std;
+
+struct student
+{
+  char name [10];
+  int id;
+  float gpa;
+};
+int add()
+{
+
+
+  
+}
+
+  int main()
+  {
+    cout << "This program creates a student list and allows uesr to add/remove students into/from the student list." << endl;
+    cout << "Type \"ADD\" if you want to add a student to the student list." << endl;
+    cout << "Type \"DELETE\" if you want to delete one of the student in the student list."<< endl;
+    cout << "Type \"PRINT\" if you want to see all of the students' information in the student list."<< endl;
+    cout << "Type \"QUIT\" or simply alt+f4 to close the program."<< endl;
+    cout << endl;
+    Bool answer = false;
+    Bool program = true;
+    while (program == true)
+      {
+	
+	
+	cout << "Now what would you like to do? my friend."<< endl;
+	char answer[99];
+	cin.get (answer, 99); 
+	answer[strlen(answer)] = '\0'; // end the char array from reading in more.
+	//Ex. answer = ADD, answer length = 3, answer[3] would be empty and just end right there.
+	if (answer[0] = 'A' &&
+	    answer[1] = 'D' &&
+	    answer[2] = 'D' )
+	  {
+	    cout << "add students" << endl;
+	  }
+	if (answer[0] = 'D' &&
+	    answer[1] = 'E' &&
+	    answer[2] = 'L' &&
+	    answer[3] = 'E' &&
+	    answer[5] = 'T' &&
+	    answer[6] = 'E' )
+	  {
+	    cout << "Delete students" << endl;
+	  }
+	if (
+      
+	    student newstudent;
+	    cin >> newstudent.name;
+	    newstudent.id = 1234;
+	    newstudent.gpa = 3.0;
+
+ 	    cout << "Name: "<<  newstudent.name << " ID: " << newstudent.id << " GPA: " << newstudent.gpa << endl;
+
+       }
+	return 0;
+
+ }
