@@ -270,12 +270,6 @@ firstname[flength] = '\0';
  cin.get();
    a->gpa =gpa;
 	
-  int digits = (log10(gpa)) + 3 ;
-   
-   
-   std::cout << std::setprecision(digits) << gpa << '\n';
-   std::cout << std::fixed;
- 
 
   
    // return the student t
