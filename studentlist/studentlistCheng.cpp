@@ -6,6 +6,8 @@
 #include<iostream>
 #include<cstring>
 #include<vector>
+#include <iomanip>
+#include <math.h>
 #include<string.h>
 using namespace std;
 
@@ -267,6 +269,13 @@ firstname[flength] = '\0';
  cin >> gpa;
  cin.get();
    a->gpa =gpa;
+	
+  int digits = (log10(gpa)) + 3 ;
+   
+   
+   std::cout << std::setprecision(digits) << gpa << '\n';
+   std::cout << std::fixed;
+ 
 
   
    // return the student t
